@@ -862,9 +862,9 @@ class TrainingArguments:
 
         if (
             is_torch_available()
+            and (self.fp16 or self.fp16_full_eval or self.bf16 or self.bf16_full_eval)
             and (self.device.type != "cuda")
             and not (self.device.type == "xla" and "GPU_NUM_DEVICES" in os.environ)
-            and (self.fp16 or self.fp16_full_eval or self.bf16 or self.bf16_full_eval)
         ):
             raise ValueError(
                 "Mixed precision training with AMP or APEX (`--fp16` or `--bf16`) and half precision evaluation (`--fp16_full_eval` or `--bf16_full_eval`) can only be used on CUDA devices."
